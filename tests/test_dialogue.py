@@ -20,8 +20,28 @@ def test_prompt_includes_memories():
     assert "My friend is named Ravi." in prompt
 
 
-def test_generate_reply_returns_prompt():
-    result = generate_reply("Hello Clara", "happy")
 
-    assert isinstance(result, str)
-    assert "Hello Clara" in result
+def test_generate_reply_returns_ai_response(monkeypatch):
+    from dialogue import generator
+
+    class FakeResponse:
+        text = "Hello! I am Clara."
+
+    class FakeModels:
+        def generate_content(self, **kwargs):
+            return FakeResponse()
+
+    class FakeClient:
+        models = FakeModels()
+
+    class FakeGenAI:
+        @staticmethod
+        def Client():
+            return FakeClient()
+
+    monkeypatch.setattr("google.genai.Client", FakeGenAI.Client)
+
+    result = generator.generate_reply("Hello Clara", "happy")
+
+    assert result == "Hello! I am Clara."
+

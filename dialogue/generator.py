@@ -37,5 +37,27 @@ Clara's reply:
 
 
 def generate_reply(text, emotion, memories=None):
-    """Return the prompt that will be used to generate Clara's reply."""
-    return build_prompt(text, emotion, memories)
+    """Generate clara's reply using gemini"""
+    from google import genai
+
+    try:
+        client = genai.Client()
+
+        prompt = build_prompt(text, emotion, memories)
+
+        response = client.models.generate_content(
+            model="gemini-3.8-flash",
+            contents=prompt,
+        )
+
+        if response.text:
+            return response.text.strip()
+
+    except Exception:
+        pass
+
+    return (
+        "I'm here with you. "
+        "Let's take a moment and try again."
+    )
+
