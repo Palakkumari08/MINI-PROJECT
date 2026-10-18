@@ -1,6 +1,55 @@
 
+# Python virtual environments
 .venv/
+.venv-xtts/
+venv/
+env/
+
+# Python cache and compiled files
 __pycache__/
 *.py[cod]
+*$py.class
+
+# Testing and coverage
 .pytest_cache/
+.coverage
+htmlcov/
+
+# Environment variables and secrets
 .env
+.env.*
+!.env.example
+
+# Local audio and voice samples
+*.wav
+*.m4a
+*.mp3
+*.flac
+*.ogg
+
+# Generated model and checkpoint files
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.safetensors
+
+# Local model/cache directories
+models/
+checkpoints/
+.tts/
+.cache/
+
+# Logs
+*.log
+
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# VS Code local settings
+.vscode/
+
+# Generated test output
+clara_voice_test.wav
